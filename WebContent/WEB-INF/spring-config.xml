@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<context:component-scan base-package="com.inventory" />
+	<mvc:annotation-driven />
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/InventoryMgnt" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.inventory.model.Admin</value>
+				<value>com.inventory.model.Checker</value>
+				<value>com.inventory.model.Maker</value>
+				<value>com.inventory.model.Supplier</value>
+				<value>com.inventory.model.Customer</value>
+				<value>com.inventory.model.Product</value>
+				<value>com.inventory.model.PurchaseInvoice</value>
+				<value>com.inventory.model.SupplierReport</value> 
+				<value>com.inventory.model.StockReport</value>
+				<value>com.inventory.model.SaleInvoice</value>
+				<value>com.inventory.model.TaxInvoice</value>
+				<value>com.inventory.model.CustomerReport</value>
+				<value>com.inventory.model.SalesPerson</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+	
+
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<bean id="AdminDao" class="com.inventory.dao.AdminDaoImpl"></bean>
+	<bean id="AdminServices" class="com.inventory.services.AdminServicesImpl"></bean>
+
+	<bean id="CheckerDao" class="com.inventory.dao.CheckerDaoImpl"></bean>
+	<bean id="CheckerServices" class="com.inventory.services.CheckerServicesImpl"></bean>
+
+	<bean id="MakerDao" class="com.inventory.dao.MakerDaoImpl"></bean>
+	<bean id="MakerServices" class="com.inventory.services.MakerServicesImpl"></bean>
+	
+	<bean id="SupplierDao" class="com.inventory.dao.SupplierDaoImpl"></bean>
+	<bean id="SupplierServices" class="com.inventory.services.SupplierServicesImpl"></bean>
+	
+	<bean id="CustomerDao" class="com.inventory.dao.CustomerDaoImpl"></bean>
+	<bean id="CustomerServices" class="com.inventory.services.CustomerServicesImpl"></bean>
+	
+	<bean id="ProductDao" class="com.inventory.dao.ProductDaoImpl"></bean>
+	<bean id="ProductServices" class="com.inventory.services.ProductServicesImpl"></bean>
+	
+	<bean id="PurchaseInvoiceDao" class="com.inventory.dao.PurchaseInvoiceDaoImpl"></bean>
+	<bean id="PurchaseInvoiceServices" class="com.inventory.services.PurchaseInvoiceServicesImpl"></bean>
+	
+	<bean id="SupplierReportDao" class="com.inventory.dao.SupplierReportDaoImpl"></bean>
+	<bean id="SupplierReportServices" class="com.inventory.services.SupplierReportServicesImpl"></bean>
+	
+	<bean id="StockReportDao" class="com.inventory.dao.StockReportDaoImpl"></bean>
+	<bean id="StockReportServices" class="com.inventory.services.StockReportServicesImpl"></bean>
+	
+	<bean id="SaleInvoiceDao" class="com.inventory.dao.SaleInvoiceDaoImpl"></bean>
+	<bean id="SaleInvoiceServices" class="com.inventory.services.SaleInvoiceServicesImpl"></bean>
+	
+	<bean id="TaxInvoiceDao" class="com.inventory.dao.TaxInvoiceDaoImpl"></bean>
+	<bean id="TaxInvoiceServices" class="com.inventory.services.TaxInvoiceServicesImpl"></bean>
+	
+	<bean id="CustomerReportDao" class="com.inventory.dao.CustomerReportDaoImpl"></bean>
+	<bean id="CustomerReportServices" class="com.inventory.services.CustomerReportServicesImpl"></bean>
+	
+	<bean id="SalesPersonDao" class="com.inventory.dao.SalesPersonDaoImpl"></bean>
+	<bean id="SalesPersonServices" class="com.inventory.services.SalesPersonServicesImpl"></bean>
+	
+</beans>
